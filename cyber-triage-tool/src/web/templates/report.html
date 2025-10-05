@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Report: {{ summary.case_id }}{% endblock %}
+
+{% block content %}
+<div class="report-header">
+    <h1>Dashboard: <span class="case-id">{{ summary.case_id }}</span></h1>
+    <p class="lead"><strong>Target:</strong> {{ summary.target }} | <strong>Generated:</strong> {{ summary.generated_at }}</p>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="card-body">
+                <h5 class="card-title">Total Files</h5>
+                <p class="card-text" id="total-files">{{ summary.count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="card-body">
+                <h5 class="card-title">High Entropy</h5>
+                <p class="card-text" id="high-entropy-count">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="card-body">
+                <h5 class="card-title">Executables</h5>
+                <p class="card-text" id="executables-count">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="card-body">
+                <h5 class="card-title">YARA Matches</h5>
+                <p class="card-text" id="yara-matches-count">0</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Findings by Type</h5>
+                <canvas id="findings-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Entropy Distribution</h5>
+                <canvas id="entropy-chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Detailed Findings</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Path</th>
+                    <th>SHA256</th>
+                    <th>Entropy</th>
+                    <th>Flags</th>
+                </tr>
+            </thead>
+            <tbody id="findings-table-body">
+                </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

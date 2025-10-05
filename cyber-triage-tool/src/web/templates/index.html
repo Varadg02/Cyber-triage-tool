@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <h1 class="display-4">Cyber Triage Dashboard</h1>
+    <p class="lead">Automated analysis and one-click investigation.</p>
+</div>
+
+<div class="case-list">
+    <h2 class="text-center mb-4">Investigation Cases</h2>
+    <div class="row">
+        {% for case in cases %}
+        <div class="col-md-4">
+            <div class="card case-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ case }}</h5>
+                    <p class="card-text">Click to view the detailed report.</p>
+                    <a href="{{ url_for('report', case_id=case) }}" class="btn btn-primary">View Report</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col">
+            <div class="alert alert-info">No cases found.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

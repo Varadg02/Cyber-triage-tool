@@ -1,0 +1,28 @@
+app:
+  name: Cyber Triage Tool
+  version: 0.1.0
+  output_dir: data/cases
+  log_dir: logs
+  web:
+    host: 127.0.0.1
+    port: 8000
+    debug: false
+
+triage:
+  quick_scan:
+    max_file_size_mb: 50
+    yara_rules_dir: config/yara
+  full_analysis:
+    enable_memory_analysis: true
+    network_scan_timeout: 10
+
+investigation:
+  default_case_prefix: CASE
+  evidence_dirs:
+    - data/evidence
+
+logging:
+  level: INFO
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  file: logs/app.log
+
